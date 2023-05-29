@@ -21,15 +21,17 @@
         <td th:text="${task.id}"></td>
         <td th:text="${task.title}"></td>
         <td th:text="${task.desc}"></td>
-        <td th:text="${task.status}"> </td>
+        <td th:text="${task.status}"></td>
         <td>
             <form th:action="@{/tasks/update-status}" method="post">
                 <input type="hidden" th:name="taskId" th:value="${task.id}" />
-                <select th:name="status">
-                    <option th:value="IN_PROGRESS" th:text="IN_PROGRESS" th:selected="${task.status == 'IN_PROGRESS'}"></option>
-                    <option th:value="COMPLETED" th:text="COMPLETED" th:selected="${task.status == 'COMPLETED'}"></option>
-                    <option th:value="CANCELED" th:text="CANCELED" th:selected="${task.status == 'CANCELED'}"></option>
-                </select>
+                <label>
+                    <select th:name="status">
+                        <option th:value="IN_PROGRESS" th:text="IN_PROGRESS" th:selected="${task.status == 'IN_PROGRESS'}"></option>
+                        <option th:value="COMPLETED" th:text="COMPLETED" th:selected="${task.status == 'COMPLETED'}"></option>
+                        <option th:value="CANCELED" th:text="CANCELED" th:selected="${task.status == 'CANCELED'}"></option>
+                    </select>
+                </label>
                 <button type="submit">Update</button>
             </form>
         </td>
@@ -37,7 +39,6 @@
     </tbody>
 </table>
 <a href="#" id="create-task-link">Create New Task</a>
-
 <div id="create-task-form" style="display: none;">
     <h2>Create New Task</h2>
     <form th:action="@{/tasks}" method="post">
@@ -49,8 +50,9 @@
     </form>
 </div>
 
-<script>
-        document.getElementById('create-task-link').addEventListener('click', function(e) {
+<script >
+        document.getElementById('create-task-link')
+        .addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('create-task-form').style.display = 'block';
         });

@@ -2,6 +2,7 @@ package com.example.controllers;
 
 import com.example.dto.PersonDto;
 import com.example.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -29,8 +30,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") PersonDto registrationDto,
-                               BindingResult result) {
+    public String registerUser(@ModelAttribute("user") @Valid PersonDto registrationDto, BindingResult result) {
 
         if (result.hasErrors()) {
             return "registration";
@@ -39,6 +39,10 @@ public class RegistrationController {
         if (!registrationDto.getPassword().equals(registrationDto.getConfirmPassword())) {
             result.rejectValue("confirmPassword", null, "Passwords do not match");
             return "registration";
+        }
+        if (!(userService.getUserByUsername(registrationDto.getUsername()) == null)) {
+            result.rejectValue("username", "error.registerDto", "Username is already taken");
+            return "register";
         }
         String encodedPassword = passwordEncoder.encode(registrationDto.getPassword());
         registrationDto.setPassword(encodedPassword);

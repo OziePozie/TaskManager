@@ -1,6 +1,5 @@
 package com.example.models;
 
-import com.example.TaskStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;

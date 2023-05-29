@@ -22,7 +22,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Возвращает список разрешений (ролей) пользователя
         return user.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.toString()))
@@ -31,31 +30,31 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        // Возвращает пароль пользователя
+
         return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        // Возвращает имя пользователя
+
         return user.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        // Проверяет, истек ли срок действия учетной записи пользователя
+
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        // Проверяет, заблокирована ли учетная запись пользователя
+
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        // Проверяет, истек ли срок действия учетных данных пользователя (например, пароля)
+
         return true;
     }
 
@@ -65,7 +64,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public Long getId() {
-        // Возвращает идентификатор пользователя
+
         return user.getId();
     }
 }

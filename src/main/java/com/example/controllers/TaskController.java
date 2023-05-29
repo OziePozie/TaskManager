@@ -1,6 +1,6 @@
 package com.example.controllers;
 
-import com.example.TaskStatus;
+import com.example.models.TaskStatus;
 import com.example.dto.TaskDto;
 import com.example.models.Person;
 import com.example.models.Task;
@@ -31,6 +31,8 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public String getTasks(Model model, Principal principal) {
+        if (principal == null)
+            return "/login";
         String name = principal.getName();
         Person person = personService.getUserByUsername(name);
         List<Task> tasks = taskService.getAllTasksByUser(person);
